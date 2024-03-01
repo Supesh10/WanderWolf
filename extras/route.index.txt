@@ -1,0 +1,81 @@
+
+router.use((req, res, next)=>{
+    //
+    req.user = {
+        name: "Supesh"
+    }
+    console.log("I am here.")
+    next();
+})
+
+router.get('/users',(req, res, next) =>{
+    res.json({
+        result: req.user.name,
+        msg: "List of Users",
+        meta: null
+    })
+        
+})
+
+router.post('/users',(req, res, next) =>{
+    res.json({
+        result: req.user.name,
+        msg: "List of Users",
+        meta: null
+    })
+        
+})
+
+const checkLogin = (req, res, next) => {
+    //authorized
+    next();
+}
+
+router.post('/login', checkLogin,(req, res, next) =>{
+    res.json({
+        result: req.user,
+        msg: "User Login",
+        meta: null
+    })
+        
+})
+
+router.post('/register',(req, res, next) =>{
+    res.status(400).json({
+        result: null,
+        msg: "Register request",
+        meta: null
+    })
+        
+})
+
+const getUserList = (req, res, next) =>{
+        res.json({
+            result: null,
+            msg: "Detail of id: " + req.params.id,
+            meta: null
+        })
+}
+
+const updateUser = (req, res, next) =>{
+        res.json({
+            result: null,
+            msg: "Detail of id: " + req.params.id,
+            meta: null
+        })
+}
+
+const deleteUser = (req, res, next) =>{
+        res.json({
+            result: null,
+            msg: "Detail of id: " + req.params.id,
+            meta: null
+        })
+}
+
+
+router.route('/user/:id')
+    .get(getUserList)
+    .put(updateUser)
+    .delete(deleteUser)
+
