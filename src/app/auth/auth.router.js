@@ -3,15 +3,15 @@
 const router = require("express").Router();
 const validateRequest = require("../../middlewares/validator.middleware");
 const authCtrl = require("./auth.controller");
-const { registerSchema } = require("./auth.validator");
+const { registerSchema,userActivationSchema,loginSchema } = require("./auth.validator");
 const uploader = require("./../../middlewares/uploader.middleware");
 
 //  http://localhost:3000/auth/register?key=value
 router.post("/register",uploader.single('image'), validateRequest(registerSchema),authCtrl.registerUser) 
 
-router.post("/activate/:token", authCtrl.activateUser) 
+router.post("/activate/:token",validateRequest(userActivationSchema), authCtrl.activateUser) 
 
-router.post("/login", authCtrl.loginUser) 
+router.post("/login", validateRequest(loginSchema),authCtrl.loginUser) 
 
 router.get("/me", authCtrl.userDetail)
 

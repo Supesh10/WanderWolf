@@ -29,6 +29,7 @@ app.use((error, req, res, next) =>{
         code = 400;
         msg = errorMsg;
     }
+    console.log(msg);
     res.status(code).json({
         result: null,
         msg: msg,

@@ -12,10 +12,10 @@ class AuthRequest{
             this.#data.body.image = this.#data.file.filename
         }
 
-        this.#data.token = generateRandomString();
-        this.#data.status = "inactive";
+        this.#data.body.token = generateRandomString();
+        this.#data.body.status = "inactive";
 
-        return this.#data;
+        return this.#data.body;
     }
 }
 

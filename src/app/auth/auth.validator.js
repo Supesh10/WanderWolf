@@ -9,6 +9,21 @@ let registerSchema = z.object({
 
 })
 
+let loginSchema = z.object({
+    email: z.string().min(8).nonempty(),
+    password: z.string().nonempty()
+})
+
+let userActivationSchema = z.object({
+    password: z.string().min(8).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/),
+    confirmPassword: z.string().nonempty()
+}).refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"]
+});
+
 module.exports = {
-    registerSchema
+    registerSchema,
+    userActivationSchema,
+    loginSchema
 }
